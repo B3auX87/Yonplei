@@ -19,71 +19,86 @@ public class vanishCMD implements CommandExecutor {
 
         Player p = (Player) sender;
 
-        if (p.hasPermission("yonplei.vanish")) {
+
 
             if (args.length == 0) {
 
-                if (vanished.contains(p)) {
+                if (p.hasPermission("yonplei.vanish")) {
 
-                    vanished.remove(p);
+                    if (vanished.contains(p)) {
 
-                    p.sendMessage(Main.prefix + "§7Du bist jetzt §6Sichtbar.");
+                        vanished.remove(p);
 
-                    for (Player all : Bukkit.getOnlinePlayers()) {
+                        p.sendMessage(Main.prefix + "§7Du bist jetzt §6Sichtbar.");
 
-                        all.showPlayer(p);
+                        for (Player all : Bukkit.getOnlinePlayers()) {
 
-                    }
-
-                } else {
-
-                    vanished.add(p);
-
-                    p.sendMessage(Main.prefix + "§7Du bist jetzt §6Unsichtbar.");
-                    Bukkit.getServer().broadcastMessage("§7[§c-§7] " + p.getName());
-
-                    for (Player all : Bukkit.getOnlinePlayers()) {
-
-                        if (!all.hasPermission("yonplei.vanish.see")) {
-
-                            all.hidePlayer(p);
+                            all.showPlayer(p);
 
                         }
+
+                    } else {
+
+                        vanished.add(p);
+
+                        p.sendMessage(Main.prefix + "§7Du bist jetzt §6Unsichtbar.");
+                        Bukkit.getServer().broadcastMessage("§7[§c-§7] " + p.getName());
+
+                        for (Player all : Bukkit.getOnlinePlayers()) {
+
+                            if (!all.hasPermission("yonplei.vanish.see")) {
+
+                                all.hidePlayer(p);
+
+                            }
+                        }
                     }
+                } else {
+
+                    p.sendMessage(Main.noPerms);
+
                 }
 
             } else if (args.length == 1) {
 
-                Player t = Bukkit.getServer().getPlayerExact(args[0]);
+                if (p.hasPermission("yonplei.vanish.other")) {
 
-                if (vanished.contains(t)) {
+                    Player t = Bukkit.getServer().getPlayerExact(args[0]);
 
-                    vanished.remove(t);
+                    if (vanished.contains(t)) {
 
-                    for (Player all : Bukkit.getOnlinePlayers()) {
+                        vanished.remove(t);
 
-                        all.showPlayer(t);
+                        for (Player all : Bukkit.getOnlinePlayers()) {
 
+                            all.showPlayer(t);
+
+                        }
+
+                        t.sendMessage(Main.prefix + "§7Du bist von §6" + p.getName() + " §7aus dem Vanish geholt worden!");
+                        p.sendMessage(Main.prefix + "§7Du hast §6" + t.getName() + " §7aus dem Vanish geholt!");
+
+                    } else {
+
+                        vanished.add(t);
+
+                        t.sendMessage(Main.prefix + "§7Du bist von §6" + p.getName() + " §7ins Vanish gesetzt worden!");
+                        p.sendMessage(Main.prefix + "§7Du hast §6" + t.getName() + " §7ins Vanish gesetzt!");
+
+                        for (Player all : Bukkit.getOnlinePlayers()) {
+
+                            if (!all.hasPermission("yonplei.vanish.see")) {
+
+                                all.hidePlayer(t);
+
+                            }
+                        }
                     }
-
-                    t.sendMessage(Main.prefix + "§7Du bist von §6" + p.getName() + " §7aus dem Vanish geholt worden!");
-                    p.sendMessage(Main.prefix + "§7Du hast §6" + t.getName() + " §7aus dem Vanish geholt!");
 
                 } else {
 
-                    vanished.add(t);
+                    p.sendMessage(Main.noPerms);
 
-                    t.sendMessage(Main.prefix + "§7Du bist von §6" + p.getName() + " §7ins Vanish gesetzt worden!");
-                    p.sendMessage(Main.prefix + "§7Du hast §6" + t.getName() + " §7ins Vanish gesetzt!");
-
-                    for (Player all : Bukkit.getOnlinePlayers()) {
-
-                        if (!all.hasPermission("yonplei.vanish.see")) {
-
-                            all.hidePlayer(t);
-
-                        }
-                    }
                 }
 
             } else {
@@ -91,12 +106,6 @@ public class vanishCMD implements CommandExecutor {
                 p.sendMessage(Main.use = "/vanish <name>");
 
             }
-
-        } else {
-
-            p.sendMessage(Main.noPerms);
-
-        }
 
         return false;
     }
