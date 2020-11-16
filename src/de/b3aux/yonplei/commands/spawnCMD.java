@@ -22,7 +22,7 @@ public class spawnCMD implements CommandExecutor {
 
         if (label.equalsIgnoreCase("sspawn")) {
 
-            if (player.hasPermission("Yonplei.setspawn")) {
+            if (player.hasPermission("yonplei.setspawn")) {
 
                 spawns.set("spawn", Locations.loc2Str(player.getLocation()));
                 spawns.saveConfig();
