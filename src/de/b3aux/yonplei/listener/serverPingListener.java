@@ -17,7 +17,7 @@ public class serverPingListener implements Listener {
 
         if (Main.instance.wartung) {
 
-            event.setMotd("§4§lDieser Server befindet sich momentan in Wartungsarbeiten.\n§6Kontakt über Discord möglich: §5https://discord.gg/");
+            event.setMotd("§4§lDieser Server befindet sich momentan in Wartungsarbeiten.");
 
         } else {
 

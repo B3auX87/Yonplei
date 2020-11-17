@@ -121,10 +121,6 @@ public class enchantCMD implements CommandExecutor {
 
                         itemStack.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, elvl);
 
-                    } else if (ename.equalsIgnoreCase("glück")) {
-
-                        itemStack.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS, elvl);
-
                     } else if (ename.equalsIgnoreCase("efficiency")) {
 
                         itemStack.addUnsafeEnchantment(Enchantment.DIG_SPEED, elvl);
